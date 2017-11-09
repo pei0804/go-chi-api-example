@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	member := controller.NewMember()
-	goji.Get("/", handler(member.List))
+	_ = controller.NewRouter()
 	goji.Serve()
 }

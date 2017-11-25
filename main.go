@@ -5,11 +5,13 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/docgen"
 	"github.com/siddontang/go/log"
 	"github.com/sirupsen/logrus"
 )
@@ -226,14 +228,27 @@ func (he *HTTPError) Error() string {
 
 func main() {
 	var (
-		port = flag.String("port", "8080", "addr to bind")
-		env  = flag.String("env", "develop", "実行環境 (production, staging, develop)")
+		port   = flag.String("port", "8080", "addr to bind")
+		env    = flag.String("env", "develop", "実行環境 (production, staging, develop)")
+		gendoc = flag.Bool("gendoc", true, "ドキュメント自動生成")
 	)
 	flag.Parse()
 	s := New()
 	s.Init(*env)
 	s.Middleware()
 	s.Router()
+	if *gendoc {
+		doc := docgen.MarkdownRoutesDoc(s.router, docgen.MarkdownOpts{
+			ProjectPath: "github.com/pei0804/goapi",
+			Intro:       "generated docs.",
+		})
+		file, err := os.Create(`doc.md`)
+		if err != nil {
+			s.logger.Fatal(err)
+		}
+		defer file.Close()
+		file.Write(([]byte)(doc))
+	}
 	s.logger.Info("Starting app")
 	http.ListenAndServe(fmt.Sprint(":", *port), s.router)
 }

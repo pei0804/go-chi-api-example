@@ -1,8 +1,5 @@
 run:
-	go build . && ./goapi
-
-test:
-	env HTTPDOC=1 go test -v ./...
+	go build -o build . && ./build
 
 docker-build:
 	docker-compose build

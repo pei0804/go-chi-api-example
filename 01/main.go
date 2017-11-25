@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -12,33 +13,22 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/docgen"
-	"github.com/siddontang/go/log"
-	"github.com/sirupsen/logrus"
 )
 
 // Server Server
 type Server struct {
 	router *chi.Mux
-	logger *logrus.Logger
 }
 
 // New Server構造体のコンストラクタ
 func New() *Server {
 	return &Server{
 		router: chi.NewRouter(),
-		logger: logrus.New(),
 	}
 }
 
 // Init 実行時にしたいこと
 func (s *Server) Init(env string) {
-	if env == "production" {
-		s.logger.Formatter = &logrus.JSONFormatter{}
-		s.logger.SetLevel(logrus.WarnLevel)
-	} else {
-		s.logger.Formatter = &logrus.TextFormatter{}
-		s.logger.SetLevel(logrus.DebugLevel)
-	}
 }
 
 // Middleware ミドルウェア
@@ -48,12 +38,11 @@ func (s *Server) Middleware() {
 	s.router.Use(middleware.Recoverer)
 	s.router.Use(middleware.CloseNotify)
 	s.router.Use(middleware.Timeout(time.Second * 60))
-	s.router.Use(NewStructuredLogger(s.logger))
 }
 
 // Router ルーティング設定
 func (s *Server) Router() {
-	h := NewHandler(s.logger)
+	h := NewHandler()
 	s.router.Route("/api", func(api chi.Router) {
 		api.Use(Auth("db connection"))
 		api.Route("/members", func(members chi.Router) {
@@ -81,74 +70,13 @@ func Auth(db string) (fn func(http.Handler) http.Handler) {
 	return
 }
 
-// NewStructuredLogger loggingに使うloggerを置き換える
-func NewStructuredLogger(logger *logrus.Logger) func(next http.Handler) http.Handler {
-	return middleware.RequestLogger(&StructuredLogger{logger})
-}
-
-// StructuredLogger ロガー用
-type StructuredLogger struct {
-	Logger *logrus.Logger
-}
-
-// NewLogEntry ログ書き出し
-func (l *StructuredLogger) NewLogEntry(r *http.Request) middleware.LogEntry {
-	entry := &StructuredLoggerEntry{Logger: logrus.NewEntry(l.Logger)}
-	logFields := logrus.Fields{}
-	logFields["ts"] = time.Now().UTC().Format(time.RFC1123)
-	if reqID := middleware.GetReqID(r.Context()); reqID != "" {
-		logFields["req_id"] = reqID
-	}
-	scheme := "http"
-	if r.TLS != nil {
-		scheme = "https"
-	}
-	logFields["http_scheme"] = scheme
-	logFields["http_proto"] = r.Proto
-	logFields["http_method"] = r.Method
-
-	logFields["remote_addr"] = r.RemoteAddr
-	logFields["user_agent"] = r.UserAgent()
-
-	logFields["uri"] = fmt.Sprintf("%s://%s%s", scheme, r.Host, r.RequestURI)
-	entry.Logger = entry.Logger.WithFields(logFields)
-	entry.Logger.Infoln("request started")
-	return entry
-}
-
-// StructuredLoggerEntry ログエントリ用
-type StructuredLoggerEntry struct {
-	Logger logrus.FieldLogger
-}
-
-// Panic 通常ログ
-func (l *StructuredLoggerEntry) Write(status, bytes int, elapsed time.Duration) {
-	l.Logger = l.Logger.WithFields(logrus.Fields{
-		"resp_status": status, "resp_bytes_length": bytes,
-		"resp_elapsed_ms": float64(elapsed.Nanoseconds()) / 1000000.0,
-	})
-
-	l.Logger.Infoln("request complete")
-}
-
-// Panic パニック時用のログ
-func (l *StructuredLoggerEntry) Panic(v interface{}, stack []byte) {
-	l.Logger = l.Logger.WithFields(logrus.Fields{
-		"stack": string(stack),
-		"panic": fmt.Sprintf("%+v", v),
-	})
-}
-
 // Handler ハンドラ用
 type Handler struct {
-	logger *logrus.Logger
 }
 
 // NewHandler コンストラクタ
-func NewHandler(logger *logrus.Logger) *Handler {
-	return &Handler{
-		logger: logger,
-	}
+func NewHandler() *Handler {
+	return &Handler{}
 }
 
 // Show endpoint
@@ -204,7 +132,7 @@ func respondJSON(w http.ResponseWriter, status int, payload interface{}) {
 
 // respondError レスポンスとして返すエラーを生成する
 func respondError(w http.ResponseWriter, code int, err error) {
-	log.Error("err: ", err)
+	log.Printf("err: %v", err)
 	if e, ok := err.(*HTTPError); ok {
 		respondJSON(w, e.Code, e)
 	} else if err != nil {
@@ -244,11 +172,11 @@ func main() {
 		})
 		file, err := os.Create(`doc.md`)
 		if err != nil {
-			s.logger.Fatal(err)
+			log.Printf("err: %v", err)
 		}
 		defer file.Close()
 		file.Write(([]byte)(doc))
 	}
-	s.logger.Info("Starting app")
+	log.Println("Starting app")
 	http.ListenAndServe(fmt.Sprint(":", *port), s.router)
 }

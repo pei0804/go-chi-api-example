@@ -12,13 +12,12 @@ generated docs.
 - [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
-- [RequestLogger.func1](https://github.com/go-chi/chi/middleware/logger.go#L36)
 - **/api/***
-	- [main.Auth.func1](/main.go#L71)
+	- [main.Auth.func1](/01/main.go#L60)
 	- **/members/***
 		- **/**
 			- _GET_
-				- [main.(*Handler).List-fm](/main.go#L61)
+				- [main.(*Handler).List-fm](/01/main.go#L50)
 
 </details>
 <details>
@@ -29,13 +28,12 @@ generated docs.
 - [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
-- [RequestLogger.func1](https://github.com/go-chi/chi/middleware/logger.go#L36)
 - **/api/***
-	- [main.Auth.func1](/main.go#L71)
+	- [main.Auth.func1](/01/main.go#L60)
 	- **/members/***
 		- **/{id}**
 			- _GET_
-				- [main.(*Handler).Show-fm](/main.go#L60)
+				- [main.(*Handler).Show-fm](/01/main.go#L49)
 
 </details>
 <details>
@@ -46,11 +44,10 @@ generated docs.
 - [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
-- [RequestLogger.func1](https://github.com/go-chi/chi/middleware/logger.go#L36)
 - **/api/auth/***
 	- **/login**
 		- _GET_
-			- [main.(*Handler).Login-fm](/main.go#L65)
+			- [main.(*Handler).Login-fm](/01/main.go#L54)
 
 </details>
 

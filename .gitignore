@@ -6,6 +6,7 @@
 goapi
 .DS_Store
 .idea/
+tmp/
 
 # Test binary, build with `go test -c`
 *.test

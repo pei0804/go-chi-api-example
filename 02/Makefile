@@ -1,6 +1,9 @@
 run:
 	go build -o build . && ./build
 
+test:
+	export HTTPDOC=1 && go test -v ./...
+
 docker-build:
 	docker-compose build
 
@@ -28,7 +31,10 @@ curl-auth-login:
 	curl $(host)/api/auth/login?token=$(token)
 
 curl-members-id:
-	curl -H 'Auth:$(auth)' $(host)/api/members/$(id)
+	curl -H 'Authorization:$(auth)' $(host)/api/members/$(id)
 
 curl-members:
-	curl -H 'Auth:$(auth)' $(host)/api/members
+	curl -H 'Authorization:$(auth)' $(host)/api/members
+
+curl-reqid:
+	curl -H 'Authorization:$(auth)' -H 'X-Request-ID:test' $(host)/api/members

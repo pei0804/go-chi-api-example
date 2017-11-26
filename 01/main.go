@@ -169,7 +169,7 @@ func main() {
 	s.Router()
 	if *gendoc {
 		doc := docgen.MarkdownRoutesDoc(s.router, docgen.MarkdownOpts{
-			ProjectPath: "github.com/pei0804/goapi",
+			ProjectPath: "github.com/pei0804/go-chi-api-example",
 			Intro:       "generated docs.",
 		})
 		file, err := os.Create(`doc.md`)

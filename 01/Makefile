@@ -12,7 +12,7 @@ curl-auth-login:
 	curl $(host)/api/auth/login?token=$(token)
 
 curl-members-id:
-	curl -H 'Auth:$(auth)' $(host)/api/members/$(id)
+	curl -H 'Authorization:$(auth)' $(host)/api/members/$(id)
 
 curl-members:
-	curl -H 'Auth:$(auth)' $(host)/api/members
+	curl -H 'Authorization:$(auth)' $(host)/api/members

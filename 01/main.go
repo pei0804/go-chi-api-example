@@ -29,6 +29,8 @@ func New() *Server {
 
 // Init 実行時にしたいこと
 func (s *Server) Init(env string) {
+	// 何かする
+	log.Printf("env: %s", env)
 }
 
 // Middleware ミドルウェア

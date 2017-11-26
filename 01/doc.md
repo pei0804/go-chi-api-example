@@ -13,11 +13,11 @@ generated docs.
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
 - **/api/***
-	- [main.Auth.func1](/01/main.go#L60)
+	- [main.Auth.func1](/01/main.go#L62)
 	- **/members/***
 		- **/**
 			- _GET_
-				- [main.(*Handler).List-fm](/01/main.go#L50)
+				- [main.(*Handler).List-fm](/01/main.go#L52)
 
 </details>
 <details>
@@ -29,11 +29,11 @@ generated docs.
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
 - **/api/***
-	- [main.Auth.func1](/01/main.go#L60)
+	- [main.Auth.func1](/01/main.go#L62)
 	- **/members/***
 		- **/{id}**
 			- _GET_
-				- [main.(*Handler).Show-fm](/01/main.go#L49)
+				- [main.(*Handler).Show-fm](/01/main.go#L51)
 
 </details>
 <details>
@@ -47,7 +47,7 @@ generated docs.
 - **/api/auth/***
 	- **/login**
 		- _GET_
-			- [main.(*Handler).Login-fm](/01/main.go#L54)
+			- [main.(*Handler).Login-fm](/01/main.go#L56)
 
 </details>
 

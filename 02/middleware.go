@@ -67,6 +67,7 @@ var productionCORS = cors.New(cors.Options{
 	MaxAge:           300,
 })
 
+// CorsConfig CORSの設定を環境別に持っている
 var CorsConfig = map[string]*cors.Cors{
 	"develop":    devCORS,
 	"staging":    stagingCORS,

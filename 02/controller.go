@@ -17,6 +17,7 @@ func NewController() *Controller {
 	return &Controller{}
 }
 
+// User user
 type User struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`

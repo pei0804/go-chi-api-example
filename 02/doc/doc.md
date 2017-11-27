@@ -7,47 +7,47 @@ generated docs.
 <details>
 <summary>`/api/*/members/*`</summary>
 
-- [RequestID](https://github.com/go-chi/chi/middleware/request_id.go#L63)
-- [Logger](https://github.com/go-chi/chi/middleware/logger.go#L30)
-- [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
+- [github.com/go-chi/cors.(*Cors).Handler-fm](/02/main.go#L35)
+- [RequestIDHandler](https://github.com/ascarter/requestid/requestid.go#L28)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
+- [main.loggingMiddleware](/02/middleware.go#L29)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
 - **/api/***
-	- [main.Auth.func1](/01/main.go#L62)
+	- [main.Auth.func1](/02/middleware.go#L16)
 	- **/members/***
 		- **/**
 			- _GET_
-				- [main.(*Handler).List-fm](/01/main.go#L52)
+				- [main.(handler).ServeHTTP-fm](/02/main.go#L48)
 
 </details>
 <details>
 <summary>`/api/*/members/*/{id}`</summary>
 
-- [RequestID](https://github.com/go-chi/chi/middleware/request_id.go#L63)
-- [Logger](https://github.com/go-chi/chi/middleware/logger.go#L30)
-- [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
+- [github.com/go-chi/cors.(*Cors).Handler-fm](/02/main.go#L35)
+- [RequestIDHandler](https://github.com/ascarter/requestid/requestid.go#L28)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
+- [main.loggingMiddleware](/02/middleware.go#L29)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
 - **/api/***
-	- [main.Auth.func1](/01/main.go#L62)
+	- [main.Auth.func1](/02/middleware.go#L16)
 	- **/members/***
 		- **/{id}**
 			- _GET_
-				- [main.(*Handler).Show-fm](/01/main.go#L51)
+				- [main.(handler).ServeHTTP-fm](/02/main.go#L48)
 
 </details>
 <details>
 <summary>`/api/auth/*/login`</summary>
 
-- [RequestID](https://github.com/go-chi/chi/middleware/request_id.go#L63)
-- [Logger](https://github.com/go-chi/chi/middleware/logger.go#L30)
-- [Recoverer](https://github.com/go-chi/chi/middleware/recoverer.go#L18)
+- [github.com/go-chi/cors.(*Cors).Handler-fm](/02/main.go#L35)
+- [RequestIDHandler](https://github.com/ascarter/requestid/requestid.go#L28)
 - [CloseNotify](https://github.com/go-chi/chi/middleware/closenotify18.go#L16)
+- [main.loggingMiddleware](/02/middleware.go#L29)
 - [Timeout.func1](https://github.com/go-chi/chi/middleware/timeout.go#L33)
 - **/api/auth/***
 	- **/login**
 		- _GET_
-			- [main.(*Handler).Login-fm](/01/main.go#L56)
+			- [main.(handler).ServeHTTP-fm](/02/main.go#L48)
 
 </details>
 

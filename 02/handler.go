@@ -12,12 +12,10 @@ type handler func(http.ResponseWriter, *http.Request) (int, interface{}, error)
 func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if rv := recover(); rv != nil {
-			if err := recover(); err != nil {
-				debug.PrintStack()
-				log.Printf("panic: %s", err)
-				http.Error(w, http.StatusText(
-					http.StatusInternalServerError), http.StatusInternalServerError)
-			}
+			debug.PrintStack()
+			log.Printf("panic: %s", rv)
+			http.Error(w, http.StatusText(
+				http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	}()
 	status, res, err := h(w, r)

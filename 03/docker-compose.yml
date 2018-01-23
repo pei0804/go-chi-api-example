@@ -1,0 +1,11 @@
+db:
+  build: .
+  container_name: go-chi
+  command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: go-chi
+    MYSQL_USER: go-chi
+    MYSQL_PASSWORD: password
+  ports:
+  - "3306:3306"
